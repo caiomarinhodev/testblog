@@ -37,9 +37,21 @@ from django.shortcuts import render_to_response, get_object_or_404
 
 
 def index(request):
+    posts = Post.objects.all()
+    paginator = Paginator(posts, 2)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        posts = paginator.page(paginator.num_pages)
+    
     return render_to_response('index.html', {
         'categorias': Categoria.objects.all(),
-        'posts': Post.objects.all()[:5]
+        'posts': posts
     })
 
 
@@ -55,3 +67,32 @@ def view_category(request, slug):
         'categoria': categoria,
         'posts': Post.objects.filter(categoria=categoria)[:5]
     })
+    
+
+def contato(request):
+    return render_to_response('contato.html', {},
+                              context_instance=RequestContext(request))
+                              
+
+def submit_recado(request):
+    data = request.POST
+    try:
+        recado = Recado(nome=data['nome'], email=data['email'], mensagem=data['mensagem'])
+        recado.save()
+        messages.success(request, 'Contato enviado com sucesso!')
+        return redirect('/contato')
+    except:
+        messages.error(request, 'Houve algum erro.')
+        return redirect('/contato')
+
+
+def submit_mail(request):
+    data = request.POST
+    try:
+        mail = MailListing(nome=data['nome'], email=data['email'])
+        mail.save()
+        messages.success(request, 'Email adicionado com sucesso!')
+        return redirect('/')
+    except:
+        messages.error(request, 'Houve algum erro.')
+        return redirect('/')

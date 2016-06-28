@@ -17,7 +17,7 @@ class PostForm(forms.ModelForm):
 
 class PostAdmin(admin.ModelAdmin):
     form = PostForm
-    list_display = ('id', 'titulo', 'autor', 'editado_em', 'visivel')
+    list_display = ('titulo', 'id', 'autor', 'editado_em', 'visivel')
     list_filter = ('titulo', 'autor', 'editado_em')
     ordering = ['-editado_em']
     
@@ -43,7 +43,7 @@ class PostAdmin(admin.ModelAdmin):
         
 
 class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'tag', 'slug','autor', 'editado_em')
+    list_display = ('tag', 'id', 'slug','autor', 'editado_em')
     list_filter = ('tag', 'slug', 'autor', 'editado_em')
     ordering = ['-editado_em']
     exclude = ('slug',)
@@ -53,6 +53,19 @@ class CategoriaAdmin(admin.ModelAdmin):
         obj.slug = slugify(obj.tag)
         super(CategoriaAdmin, self).save_model(request, obj, form, change)
         
+        
+class RecadoAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'email', 'id')
+    ordering = ['-criado_em']
+
+
+class CadastroAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'email', 'id')
+    ordering = ['-criado_em']
+
+        
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Categoria, CategoriaAdmin)
+admin.site.register(Recado, RecadoAdmin)
+admin.site.register(Cadastro, CadastroAdmin)

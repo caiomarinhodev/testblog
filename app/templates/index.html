@@ -23,5 +23,60 @@
     {% else %}
         <p>There are no posts.</p>
     {% endif %}
+    
+    {% if posts %}
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <nav>
+                    <ul class="pagination pagination-lg">
+                        {% if posts.has_previous %}
+                            <li><a href="?page={{ posts.previous_page_number }}"><span
+                                    class="fa fa-backward"></span> </a></li>
+                        {% endif %}
+
+                        {% if posts.number != 1 and posts.has_previous %}
+                            <li>
+                                <a href="?page={{ posts.previous_page_number }}">{{posts.previous_page_number }}</a>
+                            </li>
+                            <li class="active"><a href="?page={{ posts.number }}">{{ posts.number }}</a></li>
+                            {% if posts.next_page_number != posts.paginator.num_pages %}
+                                <li><a href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}</a>
+                                </li>
+                                {% if posts.next_page_number != posts.paginator.num_pages %}
+                                    <li><a href="#">...</a></li>
+                                    <li>
+                                        <a href="?page={{ posts.paginator.num_pages }}">{{ posts.paginator.num_pages }}</a>
+                                    </li>
+                                {% endif %}
+                                <li><a href="?page={{ posts.next_page_number }}"><span
+                                        class="fa fa-forward"></span></a></li>
+                            {% elif posts.has_next %}
+                                <li>
+                                    <a href="?page={{ posts.paginator.num_pages }}">{{ posts.paginator.num_pages }}</a>
+                                </li>
+                                <li><a href="?page={{ posts.next_page_number }}"><span
+                                        class="fa fa-forward"></span></a></li>
+                            {% endif %}
+
+                        {% else %}
+                            <li class='active'><a href="?page=1">1</a></li>
+                            {% if posts.has_next %}
+                                <li><a href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}</a>
+                                </li>
+                                {% if posts.next_page_number != posts.paginator.num_pages %}
+                                    <li><a href="#">...</a></li>
+                                    <li>
+                                        <a href="?page={{ posts.paginator.num_pages }}">{{ posts.paginator.num_pages }}</a>
+                                    </li>
+                                {% endif %}
+                                <li><a href="?page={{ posts.next_page_number }}"><span
+                                        class="fa fa-forward"></span></a></li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    {% endif %}
 
 {% endblock %}

@@ -46,6 +46,31 @@ class Post(models.Model):
     @permalink
     def get_absolute_url(self):
         return ('view_blog_post', None, { 'slug': self.slug })
+        
+
+class Recado(models.Model):
+    nome = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    mensagem = models.TextField(blank=True, null=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):  # __unicode__ on Python 2
+        return str(self.nome) + '-' + str(self.email)
+
+    def __unicode__(self):
+        return u'%s' % (self.nome)
+
+
+class Cadastro(models.Model):
+    nome = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):  # __unicode__ on Python 2
+        return str(self.nome) + '-' + str(self.email)
+
+    def __unicode__(self):
+        return u'%s' % (self.nome)
     
 
 
