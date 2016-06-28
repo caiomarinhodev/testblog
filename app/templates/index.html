@@ -30,8 +30,7 @@
                 <nav>
                     <ul class="pagination pagination-lg">
                         {% if posts.has_previous %}
-                            <li><a href="?page={{ posts.previous_page_number }}"><span
-                                    class="fa fa-backward"></span> </a></li>
+                            <li><a href="?page={{ posts.previous_page_number }}">&laquo; </a></li>
                         {% endif %}
 
                         {% if posts.number != 1 and posts.has_previous %}
@@ -48,14 +47,12 @@
                                         <a href="?page={{ posts.paginator.num_pages }}">{{ posts.paginator.num_pages }}</a>
                                     </li>
                                 {% endif %}
-                                <li><a href="?page={{ posts.next_page_number }}"><span
-                                        class="fa fa-forward"></span></a></li>
+                                <li><a href="?page={{ posts.next_page_number }}">&raquo;</a></li>
                             {% elif posts.has_next %}
                                 <li>
                                     <a href="?page={{ posts.paginator.num_pages }}">{{ posts.paginator.num_pages }}</a>
                                 </li>
-                                <li><a href="?page={{ posts.next_page_number }}"><span
-                                        class="fa fa-forward"></span></a></li>
+                                <li><a href="?page={{ posts.next_page_number }}">&raquo;</a></li>
                             {% endif %}
 
                         {% else %}
@@ -69,8 +66,7 @@
                                         <a href="?page={{ posts.paginator.num_pages }}">{{ posts.paginator.num_pages }}</a>
                                     </li>
                                 {% endif %}
-                                <li><a href="?page={{ posts.next_page_number }}"><span
-                                        class="fa fa-forward"></span></a></li>
+                                <li><a href="?page={{ posts.next_page_number }}">&raquo;</a></li>
                             {% endif %}
                         {% endif %}
                     </ul>

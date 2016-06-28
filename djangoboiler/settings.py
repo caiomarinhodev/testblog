@@ -12,13 +12,15 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 import smtplib
+
 import dj_database_url
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-#Para CKEDITOR
+# Para CKEDITOR
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 
 
@@ -125,11 +127,11 @@ USE_TZ = True
 
 
 # For email
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.mailgun.org'
-# EMAIL_HOST_USER = 'postmaster@sandbox3cb2aeaee26e40d99701d79339faccce.mailgun.org'
-# EMAIL_HOST_PASSWORD = '56381438958248eb007fc8c88409a5a4'
-# EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_HOST_USER = 'postmaster@sandbox3cb2aeaee26e40d99701d79339faccce.mailgun.org'
+EMAIL_HOST_PASSWORD = '56381438958248eb007fc8c88409a5a4'
+EMAIL_PORT = 587
 
 
 # Database Config

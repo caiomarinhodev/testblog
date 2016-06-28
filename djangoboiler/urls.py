@@ -16,11 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.conf import settings
-from django.conf.urls.static import static
 
 from app import views
-
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,6 +26,7 @@ urlpatterns = [
     url(r'^blog/view/(?P<slug>[^\.]+).html', views.view_post, name='view_blog_post'),
     url(r'^blog/category/(?P<slug>[^\.]+).html', views.view_category, name='view_blog_category'),
     url(r'^contato', views.contato, name='contato'),
-    url(r'^submit-mail', views.submit_mail, name='submit-cadastro'),
+    url(r'^boletim', views.boletim, name='boletim'),
+    url(r'^submit-mail-cadastro', views.submit_mail_cadastro, name='submit-cadastro'),
     url(r'^submit-recado', views.submit_recado, name='submit-recado')
 ]

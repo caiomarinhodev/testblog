@@ -1,15 +1,17 @@
-from django.contrib import admin
-from .models import *
 from base64 import b64encode
+
 from django.contrib import admin
 import pyimgur
 from django.utils.text import slugify
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 
+from .models import *
+
 
 class PostForm(forms.ModelForm):
     texto = forms.CharField(widget=CKEditorWidget())
+
     class Meta:
         model = Post
         exclude = ['slug']
@@ -20,11 +22,10 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'id', 'autor', 'editado_em', 'visivel')
     list_filter = ('titulo', 'autor', 'editado_em')
     ordering = ['-editado_em']
-    
-    
+
     def save_model(self, request, obj, form, change):
         if request.FILES:
-            #mudar o client id para cada cliente.
+            # mudar o client id para cada cliente.
             try:
                 CLIENT_ID = "cdadf801dc167ab"
                 data = b64encode(request.FILES['imagem'].read())
@@ -40,20 +41,20 @@ class PostAdmin(admin.ModelAdmin):
         obj.autor = request.user
         obj.slug = slugify(obj.titulo)
         super(PostAdmin, self).save_model(request, obj, form, change)
-        
+
 
 class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ('tag', 'id', 'slug','autor', 'editado_em')
+    list_display = ('tag', 'id', 'slug', 'autor', 'editado_em')
     list_filter = ('tag', 'slug', 'autor', 'editado_em')
     ordering = ['-editado_em']
     exclude = ('slug',)
-    
+
     def save_model(self, request, obj, form, change):
         obj.autor = request.user
         obj.slug = slugify(obj.tag)
         super(CategoriaAdmin, self).save_model(request, obj, form, change)
-        
-        
+
+
 class RecadoAdmin(admin.ModelAdmin):
     list_display = ('nome', 'email', 'id')
     ordering = ['-criado_em']
@@ -63,7 +64,6 @@ class CadastroAdmin(admin.ModelAdmin):
     list_display = ('nome', 'email', 'id')
     ordering = ['-criado_em']
 
-        
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Categoria, CategoriaAdmin)
