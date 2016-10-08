@@ -9,3 +9,4 @@ django-ckeditor==5.0.3
 decorator==3.4.0
 pyimgur==0.5.3
 dropbox==6.5.0
+cloudinary==1.4.0

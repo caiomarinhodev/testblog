@@ -35,6 +35,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+FILE_CHARSET='iso-8859-1'
+
+CLOUDINARY = {
+    'cloud_name': 'aerolumegroup',
+    'api_key': '918876457245355',
+    'api_secret': 'mi_Eb5nmpaT2JVLNMQrz-HPkyug'
+}
+
+
 
 # Application definition
 
@@ -154,3 +163,6 @@ STATICFILES_DIRS = [
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

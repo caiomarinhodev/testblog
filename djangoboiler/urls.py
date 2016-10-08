@@ -22,11 +22,8 @@ from app import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^admin/login/$', auth_views.login),
-    url(r'^$', views.index, name='index'),
-    url(r'^blog/view/(?P<slug>[^\.]+).html', views.view_post, name='view_blog_post'),
-    url(r'^blog/category/(?P<slug>[^\.]+).html', views.view_category, name='view_blog_category'),
-    url(r'^contato', views.contato, name='contato'),
-    url(r'^boletim', views.boletim, name='boletim'),
-    url(r'^submit-mail-cadastro', views.submit_mail_cadastro, name='submit-cadastro'),
-    url(r'^submit-recado', views.submit_recado, name='submit-recado')
+    url(r'^$', views.home, name='index'),
+    url(r'^category/(?P<slug>[^\.]+)', views.home, name='category'),
+    url(r'^sub-category/(?P<slug>[^\.]+)', views.home, name='sub-category'),
+    url(r'^post/(?P<slug>[^\.]+)', views.home, name='post'),
 ]

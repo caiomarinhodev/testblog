@@ -1,78 +1,327 @@
 {% extends 'base.html' %}
-{% block title %}Welcome to my blog{% endblock %}
+{% load staticfiles %}
 
 {% block content %}
-    <h2>Categories</h2>
-    {% if categorias %}
-        <ul>
-        {% for category in categorias %}
-            <li><a href="{{ category.get_absolute_url }}">{{ category.tag }}</a></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no posts.</p>
-    {% endif %}
+    {% include 'carrossel.html' %}
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default sidebar-menu text">
 
-    <h2>Posts</h2>
-    {% if posts %}
-        <ul>
-        {% for post in posts %}
-            <li><a href="{{ post.get_absolute_url }}">{{ post.titulo }}</a></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no posts.</p>
-    {% endif %}
-    
-    {% if posts %}
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <nav>
-                    <ul class="pagination pagination-lg">
-                        {% if posts.has_previous %}
-                            <li><a href="?page={{ posts.previous_page_number }}">&laquo; </a></li>
-                        {% endif %}
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Recent Posts</h1>
+                        </div>
 
-                        {% if posts.number != 1 and posts.has_previous %}
-                            <li>
-                                <a href="?page={{ posts.previous_page_number }}">{{posts.previous_page_number }}</a>
-                            </li>
-                            <li class="active"><a href="?page={{ posts.number }}">{{ posts.number }}</a></li>
-                            {% if posts.next_page_number != posts.paginator.num_pages %}
-                                <li><a href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}</a>
-                                </li>
-                                {% if posts.next_page_number != posts.paginator.num_pages %}
-                                    <li><a href="#">...</a></li>
-                                    <li>
-                                        <a href="?page={{ posts.paginator.num_pages }}">{{ posts.paginator.num_pages }}</a>
-                                    </li>
-                                {% endif %}
-                                <li><a href="?page={{ posts.next_page_number }}">&raquo;</a></li>
-                            {% elif posts.has_next %}
-                                <li>
-                                    <a href="?page={{ posts.paginator.num_pages }}">{{ posts.paginator.num_pages }}</a>
-                                </li>
-                                <li><a href="?page={{ posts.next_page_number }}">&raquo;</a></li>
-                            {% endif %}
+                    </div>
 
-                        {% else %}
-                            <li class='active'><a href="?page=1">1</a></li>
-                            {% if posts.has_next %}
-                                <li><a href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}</a>
-                                </li>
-                                {% if posts.next_page_number != posts.paginator.num_pages %}
-                                    <li><a href="#">...</a></li>
-                                    <li>
-                                        <a href="?page={{ posts.paginator.num_pages }}">{{ posts.paginator.num_pages }}</a>
-                                    </li>
-                                {% endif %}
-                                <li><a href="?page={{ posts.next_page_number }}">&raquo;</a></li>
-                            {% endif %}
-                        {% endif %}
-                    </ul>
-                </nav>
+                </div>
             </div>
-        </div>
-    {% endif %}
+            <div class="row">
+                <!-- *** LEFT COLUMN ***
+         _________________________________________________________ -->
 
+                <div class="col-md-9" id="blog-listing-small">
+
+                    <div class="row">
+
+                        <div class="col-md-4 col-sm-6">
+                            <div class="box-image-text blog">
+                                <div class="top">
+                                    <div class="image">
+                                        <img src="{% static 'img/portfolio-4.jpg' %}" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="bg"></div>
+                                    <div class="text">
+                                        <p class="buttons">
+                                            <a href="portfolio-detail.html"
+                                               class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>
+                                                Read more</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <h4><a href="blog-post.html">Fashion now</a></h4>
+
+                                    <p class="author-category">By <a href="#">John Snow</a> in <a href="blog.html">Webdesign</a>
+                                    </p>
+
+                                    <p class="intro">Fifth abundantly made Give sixth hath. Cattle creature i be don't
+                                        them behold green moved fowl Moved life us beast good yielding. Have bring.</p>
+
+                                    <p class="read-more"><a href="blog-post.html" class="btn btn-template-main">Continue
+                                        reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- /.box-image-text -->
+
+                        </div>
+
+                        <div class="col-md-4 col-sm-6">
+                            <div class="box-image-text blog">
+                                <div class="top">
+                                    <div class="image">
+                                        <img src="{% static 'img/portfolio-5.jpg' %}" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="bg"></div>
+                                    <div class="text">
+                                        <p class="buttons">
+                                            <a href="portfolio-detail.html"
+                                               class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>
+                                                Read more</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <h4><a href="blog-post.html">What to do</a></h4>
+
+                                    <p class="author-category">By <a href="#">John Snow</a> in <a href="blog.html">Webdesign</a>
+                                    </p>
+
+                                    <p class="intro">Fifth abundantly made Give sixth hath. Cattle creature i be don't
+                                        them behold green moved fowl Moved life us beast good yielding. Have bring.</p>
+
+                                    <p class="read-more"><a href="blog-post.html" class="btn btn-template-main">Continue
+                                        reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- /.box-image-text -->
+
+                        </div>
+
+                        <div class="col-md-4 col-sm-6">
+                            <div class="box-image-text blog">
+                                <div class="top">
+                                    <div class="image">
+                                        <img src="{% static 'img/portfolio-5.jpg' %}" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="bg"></div>
+                                    <div class="text">
+                                        <p class="buttons">
+                                            <a href="portfolio-detail.html"
+                                               class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>
+                                                Read more</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <h4><a href="blog-post.html">5 ways to look awesome</a></h4>
+
+                                    <p class="author-category">By <a href="#">John Snow</a> in <a href="blog.html">Webdesign</a>
+                                    </p>
+
+                                    <p class="intro">Am terminated it excellence invitation projection as. She graceful
+                                        shy believed distance use nay. Lively is people so basket ladies window
+                                        expect.</p>
+
+                                    <p class="read-more"><a href="blog-post.html" class="btn btn-template-main">Continue
+                                        reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- /.box-image-text -->
+
+                        </div>
+
+
+                        <div class="col-md-4 col-sm-6">
+                            <div class="box-image-text blog">
+                                <div class="top">
+                                    <div class="image">
+                                        <img src="{% static 'img/portfolio-5.jpg' %}" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="bg"></div>
+                                    <div class="text">
+                                        <p class="buttons">
+                                            <a href="portfolio-detail.html"
+                                               class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>
+                                                Read more</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <h4><a href="blog-post.html">Fashion now</a></h4>
+
+                                    <p class="author-category">By <a href="#">John Snow</a> in <a href="blog.html">Webdesign</a>
+                                    </p>
+
+                                    <p class="intro">Fifth abundantly made Give sixth hath. Cattle creature i be don't
+                                        them behold green moved fowl Moved life us beast good yielding. Have bring.</p>
+
+                                    <p class="read-more"><a href="blog-post.html" class="btn btn-template-main">Continue
+                                        reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- /.box-image-text -->
+
+                        </div>
+
+                        <div class="col-md-4 col-sm-6">
+                            <div class="box-image-text blog">
+                                <div class="top">
+                                    <div class="image">
+                                        <img src="{% static 'img/portfolio-5.jpg' %}" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="bg"></div>
+                                    <div class="text">
+                                        <p class="buttons">
+                                            <a href="portfolio-detail.html"
+                                               class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>
+                                                Read more</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <h4><a href="blog-post.html">What to do</a></h4>
+
+                                    <p class="author-category">By <a href="#">John Snow</a> in <a href="blog.html">Webdesign</a>
+                                    </p>
+
+                                    <p class="intro">Fifth abundantly made Give sixth hath. Cattle creature i be don't
+                                        them behold green moved fowl Moved life us beast good yielding. Have bring.</p>
+
+                                    <p class="read-more"><a href="blog-post.html" class="btn btn-template-main">Continue
+                                        reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- /.box-image-text -->
+
+                        </div>
+
+                        <div class="col-md-4 col-sm-6">
+                            <div class="box-image-text blog">
+                                <div class="top">
+                                    <div class="image">
+                                        <img src="{% static 'img/portfolio-5.jpg' %}" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="bg"></div>
+                                    <div class="text">
+                                        <p class="buttons">
+                                            <a href="portfolio-detail.html"
+                                               class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>
+                                                Read more</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <h4><a href="blog-post.html">5 ways to look awesome</a></h4>
+
+                                    <p class="author-category">By <a href="#">John Snow</a> in <a href="blog.html">Webdesign</a>
+                                    </p>
+
+                                    <p class="intro">Am terminated it excellence invitation projection as. She graceful
+                                        shy believed distance use nay. Lively is people so basket ladies window
+                                        expect.</p>
+
+                                    <p class="read-more"><a href="blog-post.html" class="btn btn-template-main">Continue
+                                        reading</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- /.box-image-text -->
+
+                        </div>
+
+
+                    </div>
+
+                    <ul class="pager">
+                        <li class="previous"><a href="#">&larr; Older</a>
+                        </li>
+                        <li class="next disabled"><a href="#">Newer &rarr;</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- /.col-md-9 -->
+
+                <!-- *** LEFT COLUMN END *** -->
+
+                <!-- *** RIGHT COLUMN *** -->
+
+                <div class="col-md-3">
+
+                    <div class="panel panel-default sidebar-menu">
+
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Search</h3>
+                        </div>
+
+                        <div class="panel-body">
+                            <form role="search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search"/>
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-template-main">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                		</span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default sidebar-menu">
+
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Categories</h3>
+                        </div>
+
+                        <div class="panel-body">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="blog.html">Webdesign</a>
+                                </li>
+                                <li class="active"><a href="blog.html">Tutorials</a>
+                                </li>
+                                <li><a href="blog.html">Print</a>
+                                </li>
+                                <li><a href="blog.html">Our tips</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel sidebar-menu">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Tags</h3>
+                        </div>
+
+                        <div class="panel-body">
+                            <ul class="tag-cloud">
+                                <li><a href="#"><i class="fa fa-tags"></i> html5</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tags"></i> css3</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tags"></i> jquery</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tags"></i> ajax</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tags"></i> php</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tags"></i> responsive</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tags"></i> visio</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tags"></i> bootstrap</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- *** MENUS AND FILTERS END *** -->
+
+                </div>
+                <!-- /.col-md-3 -->
+
+                <!-- *** RIGHT COLUMN END *** -->
+
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </div>
 {% endblock %}
