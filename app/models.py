@@ -44,6 +44,7 @@ class SubCategory(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=150)
     text = RichTextField()
+    # TODO: Mudar attr.
     categoria = models.ForeignKey(Category)
     subcategory = models.ManyToManyField(SubCategory)
     is_visible = models.BooleanField(default=True)
@@ -55,6 +56,7 @@ class Post(models.Model):
     def __unicode__(self):
         return u'%s' % (self.title)
 
+    # TODO: Criar metodo que gera uma descricao a partir do texto
     @permalink
     def get_absolute_url(self):
         return ('post', None, {'slug': self.slug})
