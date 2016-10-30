@@ -44,7 +44,7 @@ _________________________________________________________ -->
             <div class="container">
                 <div class="navbar-header">
 
-                    <a class="navbar-brand home" href="index.html">
+                    <a class="navbar-brand home" href="/">
                         <h1 style="margin-top: 2px;"> Aerolume</h1>
                     </a>
 
@@ -63,6 +63,9 @@ _________________________________________________________ -->
                     <ul class="nav navbar-nav navbar-right">
                         <li id="home" class="">
                             <a href="/">Home</a>
+                        </li>
+                        <li id="team" class="">
+                            <a href="/team">Team</a>
                         </li>
                         {% for cat in categories %}
                             <li id="{{ cat.name }}" class="">
