@@ -112,7 +112,7 @@ class Observatory(models.Model):
 
 class DataEntry(models.Model):
     title = models.CharField(max_length=150, blank=True, null=True)
-    movie = models.CharField(max_length=150, blank=True, null=True)
+    movie = models.URLField(blank=True, null=True)
     intrument = models.CharField(max_length=100, blank=True, null=True)
     observatory = models.ForeignKey(Observatory)
     text = RichTextField()
