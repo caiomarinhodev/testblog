@@ -36,211 +36,53 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3 col-sm-3">
-                        <div class="team-member" data-animate="fadeInUp">
-                            <div class="image">
-                                <a href="team-member.html">
-                                    <img src="{% static 'img/person-1.jpg' %}" alt="" class="img-responsive img-circle">
-                                </a>
-                            </div>
-                            <h3><a href=" team-member.html">Han Solo</a></h3>
+                    {% for member in members %}
+                        <div class="col-md-3 col-sm-3">
+                            <div class="team-member" data-animate="fadeInUp">
+                                <div class="image">
+                                    <a href="{{ member.image.url }}">
+                                        <img src="{{ member.image.url }}" alt=""
+                                             class="img-responsive img-circle">
+                                    </a>
+                                </div>
+                                <h3><a href="#">{{ member.name }}</a></h3>
 
-                            <p class="role">Founder</p>
+                                <p class="role">{{ member.role }}</p>
 
-                            <div class="social">
-                                <a href="#" class="external facebook" data-animate-hover="pulse"><i
-                                        class="fa fa-facebook"></i></a>
-                                <a href="#" class="external gplus" data-animate-hover="pulse"><i
-                                        class="fa fa-google-plus"></i></a>
-                                <a href="#" class="external twitter" data-animate-hover="pulse"><i
-                                        class="fa fa-twitter"></i></a>
-                                <a href="#" class="email" data-animate-hover="pulse"><i class="fa fa-envelope"></i></a>
+                                <div class="social">
+                                    {% if member.facebook %}
+                                        <a href="{{ member.facebook }}" class="external facebook" data-animate-hover="pulse"><i
+                                                class="fa fa-facebook"></i></a>
+                                    {% endif %}
+                                    {% if member.googleplus %}
+                                        <a href="{{ member.googleplus }}" class="external gplus" data-animate-hover="pulse"><i
+                                                class="fa fa-google-plus"></i></a>
+                                    {% endif %}
+                                    {% if member.twitter %}
+                                        <a href="{{ member.twitter }}" class="external twitter" data-animate-hover="pulse"><i
+                                                class="fa fa-twitter"></i></a>
+                                    {% endif %}
+                                    {% if member.email %}
+                                        <a href="mailto:{{ member.email }}" class="email" data-animate-hover="pulse"><i
+                                                class="fa fa-envelope"></i></a>
+                                    {% endif %}
+                                </div>
+                                <div class="text">
+                                    <p>{{ member.description }}</p>
+                                </div>
                             </div>
-                            <div class="text">
-                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                                    turpis
-                                    egestas.</p>
-                            </div>
+                            <!-- /.team-member -->
                         </div>
-                        <!-- /.team-member -->
-                    </div>
-                    <div class="col-md-3 col-sm-3" data-animate="fadeInUp">
-                        <div class="team-member">
-                            <div class="image">
-                                <a href="team-member.html">
-                                    <img src="{% static 'img/person-2.jpg' %}" alt="" class="img-responsive img-circle">
-                                </a>
-                            </div>
-                            <h3><a href=" team-member.html">Luke Skywalker</a></h3>
-
-                            <p class="role">CTO</p>
-
-                            <div class="social">
-                                <a href="#" class="external facebook" data-animate-hover="pulse"><i
-                                        class="fa fa-facebook"></i></a>
-                                <a href="#" class="external gplus" data-animate-hover="pulse"><i
-                                        class="fa fa-google-plus"></i></a>
-                                <a href="#" class="external twitter" data-animate-hover="pulse"><i
-                                        class="fa fa-twitter"></i></a>
-                                <a href="#" class="email" data-animate-hover="pulse"><i
-                                        class="fa fa-envelope"></i></a>
-                            </div>
-                            <div class="text">
-                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                                    turpis
-                                    egestas.</p>
-                            </div>
+                    {% empty %}
+                        <div class="text-center">
+                            <h1> No Members</h1>
                         </div>
-                        <!-- /.team-member -->
-                    </div>
-                    <div class="col-md-3 col-sm-3" data-animate="fadeInUp">
-                        <div class="team-member">
-                            <div class="image">
-                                <a href="team-member.html">
-                                    <img src="{% static 'img/person-3.png' %}" alt="" class="img-responsive img-circle">
-                                </a>
-                            </div>
-                            <h3><a href=" team-member.html">Princess Leia</a></h3>
+                    {% endfor %}
 
-                            <p class="role">Team Leader</p>
-
-                            <div class="social">
-                                <a href="#" class="external facebook" data-animate-hover="pulse"><i
-                                        class="fa fa-facebook"></i></a>
-                                <a href="#" class="external gplus" data-animate-hover="pulse"><i
-                                        class="fa fa-google-plus"></i></a>
-                                <a href="#" class="external twitter" data-animate-hover="pulse"><i
-                                        class="fa fa-twitter"></i></a>
-                                <a href="#" class="email" data-animate-hover="pulse"><i
-                                        class="fa fa-envelope"></i></a>
-                            </div>
-                            <div class="text">
-                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada
-                                    fames ac turpis
-                                    egestas.</p>
-                            </div>
-                        </div>
-                        <!-- /.team-member -->
-                    </div>
-                    <div class="col-md-3 col-sm-3" data-animate="fadeInUp">
-                        <div class="team-member">
-                            <div class="image">
-                                <a href="team-member.html">
-                                    <img src="{% static 'img/person-4.jpg' %}" alt=""
-                                         class="img-responsive img-circle">
-                                </a>
-                            </div>
-                            <h3><a href=" team-member.html">Jabba Hut</a></h3>
-
-                            <p class="role">Lead Developer</p>
-
-                            <div class="social">
-                                <a href="#" class="external facebook" data-animate-hover="pulse"><i
-                                        class="fa fa-facebook"></i></a>
-                                <a href="#" class="external gplus" data-animate-hover="pulse"><i
-                                        class="fa fa-google-plus"></i></a>
-                                <a href="#" class="external twitter" data-animate-hover="pulse"><i
-                                        class="fa fa-twitter"></i></a>
-                                <a href="#" class="email" data-animate-hover="pulse"><i
-                                        class="fa fa-envelope"></i></a>
-                            </div>
-                            <div class="text">
-                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada
-                                    fames ac turpis
-                                    egestas.</p>
-                            </div>
-                        </div>
-                        <!-- /.team-member -->
-                    </div>
                 </div>
                 <!-- /.row -->
+            </section>
 
-                <div class="row">
-                    <div class="col-md-2 col-sm-3">
-                        <div class="team-member" data-animate="fadeInDown">
-                            <div class="image">
-                                <a href="team-member.html">
-                                    <img src="{% static 'img/person-1.jpg' %}" alt=""
-                                         class="img-responsive img-circle">
-                                </a>
-                            </div>
-                            <h3><a href=" team-member.html">Han Solo</a></h3>
-
-                            <p class="role">Founder</p>
-                        </div>
-                        <!-- /.team-member -->
-                    </div>
-                    <div class="col-md-2 col-sm-3" data-animate="fadeInDown">
-                        <div class="team-member">
-                            <div class="image">
-                                <a href="team-member.html">
-                                    <img src="{% static 'img/person-2.jpg' %}" alt=""
-                                         class="img-responsive img-circle">
-                                </a>
-                            </div>
-                            <h3><a href=" team-member.html">Luke Skywalker</a></h3>
-
-                            <p class="role">CTO</p>
-                        </div>
-                        <!-- /.team-member -->
-                    </div>
-                    <div class="col-md-2 col-sm-3" data-animate="fadeInDown">
-                        <div class="team-member">
-                            <div class="image">
-                                <a href="team-member.html">
-                                    <img src="{% static 'img/person-3.png' %}" alt="" class="img-responsive img-circle">
-                                </a>
-                            </div>
-                            <h3><a href=" team-member.html">Princess Leia</a></h3>
-
-                            <p class="role">Team Leader</p>
-                        </div>
-                        <!-- /.team-member -->
-                    </div>
-                    <div class="col-md-2 col-sm-3" data-animate="fadeInDown">
-                        <div class="team-member">
-                            <div class="image">
-                                <a href="team-member.html">
-                                    <img src="{% static 'img/person-4.jpg' %}" alt=""
-                                         class="img-responsive img-circle">
-                                </a>
-                            </div>
-                            <h3><a href=" team-member.html">Jabba Hut</a></h3>
-
-                            <p class="role">Lead Developer</p>
-                        </div>
-                        <!-- /.team-member -->
-                    </div>
-                    <div class="col-md-2 col-sm-3" data-animate="fadeInDown">
-                        <div class="team-member">
-                            <div class="image">
-                                <a href="team-member.html">
-                                    <img src="{% static 'img/person-2.jpg' %}" alt=""
-                                         class="img-responsive img-circle">
-                                </a>
-                            </div>
-                            <h3><a href=" team-member.html">Franz Kafka</a></h3>
-
-                            <p class="role">CTO</p>
-                        </div>
-                        <!-- /.team-member -->
-                    </div>
-                    <div class="col-md-2 col-sm-3" data-animate="fadeInDown">
-                        <div class="team-member">
-                            <div class="image">
-                                <a href="team-member.html">
-                                    <img src="{% static 'img/person-3.png' %}"
-                                         alt="" class="img-responsive img-circle">
-                                </a>
-                            </div>
-                            <h3><a href="team-member.html">Gregor Samsa</a></h3>
-
-                            <p class="role">CTO</p>
-                        </div>
-                        <!-- /.team-member -->
-                    </div>
-                </div>
-                <!-- /.row -->
         </div>
     </div>
     </section>

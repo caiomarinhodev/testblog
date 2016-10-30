@@ -15,12 +15,28 @@ class PostForm(forms.ModelForm):
         exclude = ['slug']
 
 
+class DataEntryForm(forms.ModelForm):
+    text = forms.CharField(widget=CKEditorWidget())
+
+    class Meta:
+        model = DataEntry
+        exclude = ['']
+
+
 class ImagePostAdmin(admin.ModelAdmin):
     list_display = ('id', 'image', 'is_background_home', 'is_visible',)
 
 
+class TeamMemberAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'image', 'role',)
+
+
 class ImagePostInline(admin.TabularInline):
     model = ImagePost
+
+
+class ImageDataEntryInline(admin.TabularInline):
+    model = ImageDataEntry
 
 
 class MessageAdmin(admin.ModelAdmin):
@@ -40,6 +56,17 @@ class PostAdmin(admin.ModelAdmin):
         except:
             obj.slug = slugify(obj.title)
         super(PostAdmin, self).save_model(request, obj, form, change)
+
+
+class DataEntryAdmin(admin.ModelAdmin):
+    inlines = [ImageDataEntryInline, ]
+    form = DataEntryForm
+    list_display = ('title', 'id', 'created_at', 'published_at', 'is_visible')
+    ordering = ['-created_at']
+
+
+class ObservatoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'key', 'id', 'created_at')
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -65,3 +92,6 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(ImagePost, ImagePostAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(TeamMember, TeamMemberAdmin)
+admin.site.register(Observatory, ObservatoryAdmin)
+admin.site.register(DataEntry, DataEntryAdmin)

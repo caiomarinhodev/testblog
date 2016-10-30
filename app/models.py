@@ -82,3 +82,56 @@ class Message(models.Model):
 
     def __unicode__(self):
         return u'%s - %s' % (self.name, self.email)
+
+
+class TeamMember(models.Model):
+    name = models.CharField(max_length=100)
+    facebook = models.URLField(blank=True, null=True)
+    googleplus = models.URLField(blank=True, null=True)
+    twitter = models.URLField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    role = models.CharField(max_length=100)
+    site = models.URLField(blank=True, null=True)
+    image = CloudinaryField('image')
+    description = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return u'%s' % (self.name)
+
+
+class Observatory(models.Model):
+    name = models.CharField(max_length=100)
+    key = models.CharField(max_length=3)
+    is_visible = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    published_at = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return u'%s' % (self.name)
+
+
+class DataEntry(models.Model):
+    title = models.CharField(max_length=150, blank=True, null=True)
+    movie = models.CharField(max_length=150, blank=True, null=True)
+    intrument = models.CharField(max_length=100, blank=True, null=True)
+    observatory = models.ForeignKey(Observatory)
+    text = RichTextField()
+    is_visible = models.BooleanField(default=True)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    published_at = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return u'%s' % (self.title)
+
+    @permalink
+    def get_absolute_url(self):
+        return ('view_data', None, {'id': self.id})
+
+
+class ImageDataEntry(models.Model):
+    image = CloudinaryField('image')
+    model = models.ForeignKey(DataEntry, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    published_at = models.DateTimeField(auto_now=True)

@@ -143,5 +143,23 @@ def submit_mail_newsletter(request):
 def team(request):
     categories = Category.objects.filter(is_visible=True).order_by('-created_at')
     return render_to_response('team.html', {
-        'categories': categories
+        'categories': categories,
+        'members': TeamMember.objects.all()
     }, context_instance=RequestContext(request))
+
+
+def data(request):
+    categories = Category.objects.filter(is_visible=True).order_by('-created_at')
+    return render_to_response('calendar.html', {
+        'categories': categories,
+        'observatories': Observatory.objects.all()
+    }, context_instance=RequestContext(request))
+
+
+def view_data(request, id):
+    categories = Category.objects.filter(is_visible=True).order_by('-created_at')
+    subcategories = SubCategory.objects.filter(is_visible=True).order_by('-created_at')
+    return render_to_response('view_data.html', {'data': get_object_or_404(DataEntry, id=id),
+                                                 'categories': categories,
+                                                 'subcategories': subcategories},
+                              context_instance=RequestContext(request))
