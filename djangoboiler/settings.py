@@ -31,7 +31,7 @@ CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.j
 SECRET_KEY = 'ppsh=mors*9c5bk&lh7kw(1)%#)y!m21z@+y6k#79&l^@z4971'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -145,8 +145,8 @@ EMAIL_PORT = 587
 
 
 # Database Config
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 # Static files (CSS, JavaScript, Images)
