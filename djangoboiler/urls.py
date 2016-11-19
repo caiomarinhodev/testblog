@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^admin/login/$', auth_views.login),
     url(r'^$', views.home_paginate, name='index'),
+    url(r'^cron', views.cron, name='cron'),
     url(r'^category/(?P<slug>[^\.]+)', views.list_category_paginate, name='category'),
     url(r'^sub-category/(?P<slug>[^\.]+)', views.list_subcategory_paginate, name='sub-category'),
     url(r'^post/(?P<slug>[^\.]+)', views.view_post, name='view_post'),
