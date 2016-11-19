@@ -23,7 +23,9 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # Para CKEDITOR
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 
-
+CRONJOBS = [
+    ('*/1 * * * *', 'djangoboiler.cron.schedule_job')
+]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -31,11 +33,11 @@ CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.j
 SECRET_KEY = 'ppsh=mors*9c5bk&lh7kw(1)%#)y!m21z@+y6k#79&l^@z4971'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-FILE_CHARSET='iso-8859-1'
+FILE_CHARSET = 'iso-8859-1'
 
 CLOUDINARY = {
     'cloud_name': 'aerolumegroup',
@@ -48,6 +50,7 @@ CLOUDINARY = {
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

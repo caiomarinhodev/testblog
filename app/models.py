@@ -113,12 +113,10 @@ class Observatory(models.Model):
 class DataEntry(models.Model):
     title = models.CharField(max_length=150, blank=True, null=True)
     movie = models.URLField(blank=True, null=True)
-    intrument = models.CharField(max_length=100, blank=True, null=True)
+    instrument = models.CharField(max_length=100, blank=True, null=True)
     observatory = models.ForeignKey(Observatory)
     text = RichTextField()
     is_visible = models.BooleanField(default=True)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     published_at = models.DateTimeField(auto_now=True)
 
@@ -131,7 +129,8 @@ class DataEntry(models.Model):
 
 
 class ImageDataEntry(models.Model):
-    image = CloudinaryField('image')
+    filename = models.CharField(max_length=500, null=True, blank=True)
+    url = models.URLField(null=True, blank=True)
     model = models.ForeignKey(DataEntry, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     published_at = models.DateTimeField(auto_now=True)

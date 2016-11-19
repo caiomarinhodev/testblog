@@ -137,9 +137,9 @@
                 {% for obs in observatories %}
                     {% for item in obs.dataentry_set.all %}
                         {
-                            title: '{{ item.observatory.key }}',
-                            start: new Date('{{ item.start_time|date:"c" }}'),
-                            end: new Date('{{ item.end_time|date:"c" }}'),
+                            title: '{{ item.observatory.key }}'.toUpperCase(),
+                            start: new Date('{{ item.created_at|date:"c" }}'),
+                            end: new Date('{{ item.created_at|date:"c" }}'),
                             url: '{{ item.get_absolute_url }}',
                             backgroundColor: "#3c8dbc", //Primary (light-blue)
                             borderColor: "#3c8dbc" //Primary (light-blue)
