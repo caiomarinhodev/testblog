@@ -49,7 +49,7 @@
                                         {% endif %}
                                     </a>
                                 </div>
-                                <h3><a href="#">{{ member.name }}</a></h3>
+                                <h3><a href="#">{{ member.name|truncatechars:"21" }}</a></h3>
 
                                 <p class="role">{{ member.role }}</p>
 
