@@ -105,6 +105,8 @@ class TeamMember(models.Model):
     facebook = models.URLField(blank=True, null=True)
     googleplus = models.URLField(blank=True, null=True)
     twitter = models.URLField(blank=True, null=True)
+    lattes= models.URLField(blank=True, null=True)
+    orcid = models.URLField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     role = models.CharField(max_length=100)
     site = models.URLField(blank=True, null=True)
