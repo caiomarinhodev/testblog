@@ -61,8 +61,7 @@ class PostAdmin(admin.ModelAdmin):
 class DataEntryAdmin(admin.ModelAdmin):
     inlines = [ImageDataEntryInline, ]
     form = DataEntryForm
-    list_display = ('title', 'id', 'created_at', 'published_at', 'is_visible')
-    ordering = ['-created_at']
+    list_display = ('title', 'id', 'created', 'is_visible')
 
 
 class ObservatoryAdmin(admin.ModelAdmin):
