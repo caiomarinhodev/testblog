@@ -37,14 +37,14 @@
 
                     {% if data.imagedataentry_set.all|length_is:"1" %}
                         <div class="text-center">
-                            <a href="{{ data.imagedataentry_set.first.url }}" class="thumbnail">
+                            <a href="{{ data.imagedataentry_set.first.url }}" class="thumbnail" target="_blank">
                                 <img class="img-responsive" src="{{ data.imagedataentry_set.first.url }}"/>
                             </a>
                         </div>
                     {% else %}
                         {% for img in data.imagedataentry_set.all %}
                             <div class="col-xs-6 col-md-3">
-                                <a href="{{ img.url }}" class="thumbnail">
+                                <a href="{{ img.url }}" class="thumbnail" target="_blank">
                                     <img src="{{ img.url }}" alt=""/>
                                 </a>
                             </div>
@@ -56,9 +56,9 @@
                             <div class="text-center">
                                 <p><b>Observatory:</b> {{ data.observatory.name }}</p>
 
-                                <p><b>Instrument:</b> {{ data.instrument }}</p>
+                                <p><b>Instrument:</b> {{ data.instrument_key.name }}</p>
 
-                                <p><b>Created at:</b> {{ data.created_at }}</p>
+                                <p><b>Created at:</b> {{ data.created }}</p>
 
                                 <p><b>Summary:</b> <a href="{{ data.movie }}" target="_blank">Movie</a></p>
                                 {{ data.text|safe }}
