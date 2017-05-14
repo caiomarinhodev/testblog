@@ -176,9 +176,13 @@ class DataEntry(TimeStamped):
     title = models.CharField(max_length=150, blank=True, null=True)
     movie = models.URLField(blank=True, null=True)
     instrument = models.CharField(max_length=100, blank=True, null=True)
+    instrument_key = models.ForeignKey(Instrument, on_delete=models.CASCADE, blank=True, null=True)
     observatory = models.ForeignKey(Observatory, on_delete=models.CASCADE)
+    em = models.ForeignKey(Em, on_delete=models.CASCADE, blank=True, null=True)
+    type = models.ForeignKey(Type, on_delete=models.CASCADE, blank=True, null=True)
     text = RichTextField()
     is_visible = models.BooleanField(default=True)
+    created = models.DateTimeField(blank=True, null=True)
 
     def __unicode__(self):
         return u'%s' % (self.title)
