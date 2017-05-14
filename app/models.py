@@ -6,7 +6,6 @@ from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.db.models import permalink
 
-
 # Create your models here.
 from django.template.defaultfilters import safe
 
@@ -105,7 +104,7 @@ class TeamMember(models.Model):
     facebook = models.URLField(blank=True, null=True)
     googleplus = models.URLField(blank=True, null=True)
     twitter = models.URLField(blank=True, null=True)
-    lattes= models.URLField(blank=True, null=True)
+    lattes = models.URLField(blank=True, null=True)
     orcid = models.URLField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     role = models.CharField(max_length=100)
@@ -121,6 +120,19 @@ class Observatory(TimeStamped):
     class Meta:
         verbose_name = "Observatory"
         verbose_name_plural = "Observatories"
+
+    name = models.CharField(max_length=100)
+    key = models.CharField(max_length=3)
+    is_visible = models.BooleanField(default=True)
+
+    def __unicode__(self):
+        return u'%s' % (self.name)
+
+
+class Instrument(TimeStamped):
+    class Meta:
+        verbose_name = "Instrument"
+        verbose_name_plural = "Instruments"
 
     name = models.CharField(max_length=100)
     key = models.CharField(max_length=3)
