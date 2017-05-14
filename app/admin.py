@@ -77,6 +77,10 @@ class EmAdmin(admin.ModelAdmin):
     list_display = ('name', 'key', 'id', 'created_at')
 
 
+class TypeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'key', 'id', 'created_at')
+
+
 class CategoryAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         try:
@@ -105,4 +109,5 @@ admin.site.register(TeamMember, TeamMemberAdmin)
 admin.site.register(Observatory, ObservatoryAdmin)
 admin.site.register(Instrument, InstrumentAdmin)
 admin.site.register(Em, EmAdmin)
+admin.site.register(Type, TypeAdmin)
 admin.site.register(DataEntry, DataEntryAdmin)
