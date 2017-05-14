@@ -168,7 +168,7 @@ class Type(TimeStamped):
         return u'%s' % (self.name)
 
 
-class DataEntry(models.Model):
+class DataEntry(TimeStamped):
     class Meta:
         verbose_name = "DataEntry"
         verbose_name_plural = "DataEntries"
@@ -178,7 +178,8 @@ class DataEntry(models.Model):
     instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE, blank=True, null=True)
     observatory = models.ForeignKey(Observatory, on_delete=models.CASCADE, blank=True, null=True)
     em = models.ForeignKey(Em, on_delete=models.CASCADE, blank=True, null=True)
-    typing = models.ForeignKey(Type, on_delete=models.CASCADE, blank=True, null=True)
+    type = models.ForeignKey(Type, on_delete=models.CASCADE, blank=True, null=True)
+    text = RichTextField()
     is_visible = models.BooleanField(default=True)
     created = models.DateTimeField(blank=True, null=True)
 
