@@ -155,6 +155,19 @@ class Em(TimeStamped):
         return u'%s' % (self.name)
 
 
+class Type(TimeStamped):
+    class Meta:
+        verbose_name = "Type"
+        verbose_name_plural = "Types"
+
+    name = models.CharField(max_length=100)
+    key = models.CharField(max_length=3)
+    is_visible = models.BooleanField(default=True)
+
+    def __unicode__(self):
+        return u'%s' % (self.name)
+
+
 class DataEntry(TimeStamped):
     class Meta:
         verbose_name = "DataEntry"
