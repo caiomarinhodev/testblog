@@ -33,7 +33,7 @@ CRONJOBS = [
 SECRET_KEY = 'ppsh=mors*9c5bk&lh7kw(1)%#)y!m21z@+y6k#79&l^@z4971'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
