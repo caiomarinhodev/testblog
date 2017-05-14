@@ -1,4 +1,5 @@
 #!-*- conding: utf8 -*-
+import datetime
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -8,8 +9,9 @@ import dropbox
 
 from .models import *
 
+
 def split_str(str):
-    arr = str.split('-')
+    arr = str.split('_')
     if arr[-1].endswith('.png') or arr[-1].endswith('.jpg') or arr[-1].endswith('.PNG') or arr[-1].endswith('.JPG'):
         arr[-1] = arr[-1][:-4]
     elif arr[-1].endswith('.jpeg'):
@@ -23,33 +25,67 @@ def make_url(url):
     return url.replace('www.dropbox', 'dl.dropboxusercontent')
 
 
-def save_observatory(observatory):
+def get_observatory(observatory):
     try:
         obs = Observatory.objects.get(key=observatory)
     except:
-        obs = Observatory(name=observatory, key=observatory)
-        obs.save()
+        obs = None
     return obs
 
 
-def save_data_entry(title, instrument, observatory, text):
+def get_em(em):
+    try:
+        obs = Em.objects.get(key=em)
+    except:
+        obs = None
+    return obs
+
+
+def get_instrument(em):
+    try:
+        obs = Instrument.objects.get(key=em)
+    except:
+        obs = None
+    return obs
+
+
+def get_type(em):
+    try:
+        obs = Type.objects.get(key=em)
+    except:
+        obs = None
+    return obs
+
+
+def save_data_entry(title, movie, instrument, observatory, em, type, created_at):
     try:
         data_entry = DataEntry.objects.get(title=title, observatory=observatory)
     except:
-        data_entry = DataEntry(title=title, instrument=instrument, observatory=observatory, text=text)
+        data_entry = DataEntry(title=title, movie=movie, instrument_key=instrument, observatory=observatory, em=em,
+                               type=type, created=created_at)
         data_entry.save()
     return data_entry
+
+
+def convert_date(strin):
+    st_pattern = "%Y%m%d%H%M%S"
+    return datetime.datetime.strptime(strin, st_pattern)
 
 
 def save_image_entry(entry, url, arr):
     try:
         img = ImageDataEntry.objects.get(url=make_url(url), filename=entry.name)
     except ImageDataEntry.DoesNotExist:
-        obs = save_observatory(arr[2])
-        data_entry = save_data_entry(arr[0], arr[1], obs, arr[3])
+        title = entry.name
+        movie = url
+        obs = get_observatory(arr[0])
+        instrument = get_instrument(arr[1])
+        em = get_em(arr[2])
+        type = get_type(arr[3])
+        created_at = convert_date(arr[4])
+        data_entry = save_data_entry(title, movie, instrument, obs, em, type, created_at)
         img = ImageDataEntry(filename=entry.name, url=make_url(url), model=data_entry)
         img.save()
-        print '---NAO EXISTEE------------'
     return img
 
 
