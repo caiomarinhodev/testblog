@@ -155,19 +155,6 @@ class Em(TimeStamped):
         return u'%s' % (self.name)
 
 
-class Type(TimeStamped):
-    class Meta:
-        verbose_name = "Type"
-        verbose_name_plural = "Types"
-
-    name = models.CharField(max_length=100)
-    key = models.CharField(max_length=3)
-    is_visible = models.BooleanField(default=True)
-
-    def __unicode__(self):
-        return u'%s' % (self.name)
-
-
 class DataEntry(TimeStamped):
     class Meta:
         verbose_name = "DataEntry"
@@ -175,13 +162,10 @@ class DataEntry(TimeStamped):
 
     title = models.CharField(max_length=150, blank=True, null=True)
     movie = models.URLField(blank=True, null=True)
-    instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE, blank=True, null=True)
-    observatory = models.ForeignKey(Observatory, on_delete=models.CASCADE, blank=True, null=True)
-    em = models.ForeignKey(Em, on_delete=models.CASCADE, blank=True, null=True)
-    type = models.ForeignKey(Type, on_delete=models.CASCADE, blank=True, null=True)
+    instrument = models.CharField(max_length=100, blank=True, null=True)
+    observatory = models.ForeignKey(Observatory, on_delete=models.CASCADE)
     text = RichTextField()
     is_visible = models.BooleanField(default=True)
-    created = models.DateTimeField(blank=True, null=True)
 
     def __unicode__(self):
         return u'%s' % (self.title)
