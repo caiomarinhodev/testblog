@@ -142,6 +142,19 @@ class Instrument(TimeStamped):
         return u'%s' % (self.name)
 
 
+class Em(TimeStamped):
+    class Meta:
+        verbose_name = "EM"
+        verbose_name_plural = "EMs"
+
+    name = models.CharField(max_length=100)
+    key = models.CharField(max_length=3)
+    is_visible = models.BooleanField(default=True)
+
+    def __unicode__(self):
+        return u'%s' % (self.name)
+
+
 class DataEntry(TimeStamped):
     class Meta:
         verbose_name = "DataEntry"
