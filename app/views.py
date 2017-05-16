@@ -257,3 +257,11 @@ def view_data(request, id):
                                                  'categories': categories,
                                                  'subcategories': subcategories},
                               context_instance=RequestContext(request))
+
+
+def list_obs_data(request):
+    query = request.GET
+    obs = Observatory.objects.get(id=query['id'])
+    entries = DataEntry.objects.first(observatory=obs, created=query['data'])
+    return render_to_response('list_data.html', {'entries': entries},
+                              context_instance=RequestContext(request))

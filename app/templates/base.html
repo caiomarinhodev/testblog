@@ -140,7 +140,7 @@
                             title: '{{ item.observatory.key }}'.toUpperCase(),
                             start: new Date('{{ item.created|date:"c" }}'),
                             end: new Date('{{ item.created|date:"c" }}'),
-                            url: '{{ item.get_absolute_url }}',
+                            url: '/list-obs/?id={{ item.id }}&data={{ item.created }}',
                             backgroundColor: "#3c8dbc", //Primary (light-blue)
                             borderColor: "#3c8dbc" //Primary (light-blue)
                         },

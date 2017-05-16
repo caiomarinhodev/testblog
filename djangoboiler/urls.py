@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^sub-category/(?P<slug>[^\.]+)', views.list_subcategory_paginate, name='sub-category'),
     url(r'^post/(?P<slug>[^\.]+)', views.view_post, name='view_post'),
     url(r'^data/$', views.data, name='data'),
+    url(r'^list-obs/$', views.list_obs_data, name='list_obs'),
     url(r'^data/(?P<id>[^\.]+)', views.view_data, name='view_data'),
     url(r'^search/$', views.search_paginate, name='search'),
     url(r'^team/$', views.team, name='team'),
