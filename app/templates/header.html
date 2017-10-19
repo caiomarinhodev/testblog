@@ -45,7 +45,7 @@ _________________________________________________________ -->
                 <div class="navbar-header">
 
                     <a class="navbar-brand home" href="/">
-                        <h1 style="margin-top: 2px;"> Aerolume</h1>
+                        <h1 style="margin-top: 2px;"> Site</h1>
                     </a>
 
                     <div class="navbar-buttons">
@@ -64,17 +64,11 @@ _________________________________________________________ -->
                         <li id="home" class="">
                             <a href="/">Home</a>
                         </li>
-                        <li id="team" class="">
-                            <a href="/team">Team</a>
-                        </li>
                         {% for cat in categories %}
                             <li id="{{ cat.name }}" class="">
                                 <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
                             </li>
                         {% endfor %}
-                        <li id="data" class="">
-                            <a href="/data">Data</a>
-                        </li>
                         <li id="contact" class="">
                             <a href="/contact">Contact</a>
                         </li>
@@ -82,7 +76,7 @@ _________________________________________________________ -->
 
                 </div>
                 <!--/.nav-collapse -->
-
+{#                <hr style="margin-top: 0px;"/>#}
             </div>
 
         </div>

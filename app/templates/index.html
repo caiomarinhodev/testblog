@@ -2,8 +2,23 @@
 {% load staticfiles %}
 
 {% block content %}
-    {% include 'carrossel.html' %}
-    <div id="content">
+{#    {% include 'carrossel.html' %}#}
+    <div id="heading-breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                </div>
+                <div class="col-md-5">
+                    <ul class="breadcrumb">
+                        <li><a href="/">Home</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content" style="margin-top: 50px;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -24,12 +39,12 @@
                 <div class="col-md-9" id="blog-listing-small">
 
                     <div class="row">
-                <style>
-                    .col-md-4{
-                        height:430px;
-                        width:240px;
-                    }
-                </style>
+                    <style>
+                        .col-md-4{
+                            height:430px;
+                            width:240px;
+                        }
+                    </style>
                         {% for post in posts %}
                             <div class="col-md-4 col-sm-6">
                                 <div class="box-image-text blog">
@@ -63,7 +78,7 @@
                                                 href="{{ post.get_absolute_url }}">{{ post.author }}</a>
                                         </p>
 
-                                        <p class="intro">{{ post.get_description }}</p>
+{#                                        <p class="intro">{{ post.get_description }}</p>#}
 
                                         <p class="read-more"><a href="{{ post.get_absolute_url }}"
                                                                 class="btn btn-template-main">Continue
@@ -144,25 +159,6 @@
                                     </li>
                                 {% empty %}
                                     <li><a href="#">No Categories.</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="panel sidebar-menu">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Tags</h3>
-                        </div>
-
-                        <div class="panel-body">
-                            <ul class="tag-cloud">
-                                {% for sub in subcategories %}
-                                    <li><a href="{{ sub.get_absolute_url }}"><i class="fa fa-tags"></i> {{ sub.name }}
-                                    </a>
-                                    </li>
-                                {% empty %}
-                                    <li><a href="#">No Tags.</a>
                                     </li>
                                 {% endfor %}
                             </ul>

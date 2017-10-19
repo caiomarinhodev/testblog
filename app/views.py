@@ -1,11 +1,11 @@
 #!-*- conding: utf8 -*-
 import datetime
+
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
-import dropbox
 
 from .models import *
 
@@ -25,86 +25,13 @@ def make_url(url):
     return url.replace('www.dropbox', 'dl.dropboxusercontent')
 
 
-def get_observatory(observatory):
-    try:
-        obs = Observatory.objects.get(key=observatory)
-    except:
-        obs = None
-    return obs
-
-
-def get_em(em):
-    try:
-        obs = Em.objects.get(key=em)
-    except:
-        obs = None
-    return obs
-
-
-def get_instrument(em):
-    try:
-        obs = Instrument.objects.get(key=em)
-    except:
-        obs = None
-    return obs
-
-
-def get_type(em):
-    try:
-        obs = Type.objects.get(key=em)
-    except:
-        obs = None
-    return obs
-
-
-def save_data_entry(title, movie, instrument, observatory, em, type, created_at):
-    try:
-        data_entry = DataEntry.objects.get(title=title, observatory=observatory)
-    except:
-        data_entry = DataEntry(title=title, movie=movie, instrument_key=instrument, observatory=observatory, em=em,
-                               type=type, created=created_at)
-        data_entry.save()
-    return data_entry
-
-
 def convert_date(strin):
     st_pattern = "%Y%m%d%H%M%S"
     return datetime.datetime.strptime(strin, st_pattern)
 
 
-def save_image_entry(entry, url, arr):
-    try:
-        img = ImageDataEntry.objects.get(url=make_url(url), filename=entry.name)
-    except ImageDataEntry.DoesNotExist:
-        title = entry.name
-        movie = url
-        obs = get_observatory(arr[0])
-        instrument = get_instrument(arr[1])
-        em = get_em(arr[2])
-        type = get_type(arr[3])
-        created_at = convert_date(arr[4])
-        data_entry = save_data_entry(title, movie, instrument, obs, em, type, created_at)
-        img = ImageDataEntry(filename=entry.name, url=make_url(url), model=data_entry)
-        img.save()
-    return img
-
-
-def schedule_job():
-    dbx = dropbox.Dropbox('ngrUwh1dfAAAAAAAAAAAC8zBJhbb6ycu2hPNexGtMqHsmtSCK4GPlnwzLiVVEoJZ')
-    for entry in dbx.files_list_folder('').entries:
-        url = dbx.sharing_create_shared_link(entry.path_display).url
-        arr = split_str(entry.name)
-        img = save_image_entry(entry, url, arr)
-
-
-def cron(request):
-    schedule_job()
-    return redirect('/')
-
-
 def home_paginate(request):
     categories = Category.objects.filter(is_visible=True).order_by('-created_at')
-    subcategories = SubCategory.objects.filter(is_visible=True).order_by('-created_at')
     image_posts = ImagePost.objects.filter(is_background_home=True).order_by('-created_at')
     posts = Post.objects.filter(is_visible=True).order_by('-created_at')
     paginator = Paginator(posts, 6)
@@ -118,7 +45,6 @@ def home_paginate(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         posts = paginator.page(paginator.num_pages)
     return render_to_response('index.html', {'categories': categories,
-                                             'subcategories': subcategories,
                                              'posts': posts,
                                              'image_posts': image_posts},
                               context_instance=RequestContext(request))
@@ -126,7 +52,6 @@ def home_paginate(request):
 
 def search_paginate(request):
     categories = Category.objects.filter(is_visible=True).order_by('-created_at')
-    subcategories = SubCategory.objects.filter(is_visible=True).order_by('-created_at')
     posts = Post.objects.filter(is_visible=True).order_by('-created_at')
     if 'q' in request.GET:
         posts = Post.objects.filter(text__icontains=request.GET['q'], is_visible=True).order_by('-created_at')
@@ -142,13 +67,11 @@ def search_paginate(request):
         posts = paginator.page(paginator.num_pages)
     return render_to_response('blog.html', {'categories': categories,
                                             'q': request.GET['q'],
-                                            'subcategories': subcategories,
                                             'posts': posts})
 
 
 def list_category_paginate(request, slug):
     categories = Category.objects.filter(is_visible=True).order_by('-created_at')
-    subcategories = SubCategory.objects.filter(is_visible=True).order_by('-created_at')
     posts = Post.objects.filter(is_visible=True, category=get_object_or_404(Category, slug=slug)).order_by(
         '-created_at')
     paginator = Paginator(posts, 6)
@@ -163,37 +86,33 @@ def list_category_paginate(request, slug):
         posts = paginator.page(paginator.num_pages)
     return render_to_response('blog.html', {'categories': categories,
                                             'category': slug,
-                                            'subcategories': subcategories,
                                             'posts': posts})
 
 
-def list_subcategory_paginate(request, slug):
-    categories = Category.objects.filter(is_visible=True).order_by('-created_at')
-    subcategories = SubCategory.objects.filter(is_visible=True).order_by('-created_at')
-    posts = Post.objects.filter(is_visible=True, subcategory=get_object_or_404(SubCategory, slug=slug)).order_by(
-        '-created_at')
-    paginator = Paginator(posts, 6)
-    page = request.GET.get('page')
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        posts = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        posts = paginator.page(paginator.num_pages)
-    return render_to_response('blog.html', {'categories': categories,
-                                            'category': slug,
-                                            'subcategories': subcategories,
-                                            'posts': posts})
+#
+# def list_subcategory_paginate(request, slug):
+#     categories = Category.objects.filter(is_visible=True).order_by('-created_at')
+#     posts = Post.objects.filter(is_visible=True).order_by(
+#         '-created_at')
+#     paginator = Paginator(posts, 6)
+#     page = request.GET.get('page')
+#     try:
+#         posts = paginator.page(page)
+#     except PageNotAnInteger:
+#         # If page is not an integer, deliver first page.
+#         posts = paginator.page(1)
+#     except EmptyPage:
+#         # If page is out of range (e.g. 9999), deliver last page of results.
+#         posts = paginator.page(paginator.num_pages)
+#     return render_to_response('blog.html', {'categories': categories,
+#                                             'category': slug,
+#                                             'posts': posts})
 
 
 def view_post(request, slug):
     categories = Category.objects.filter(is_visible=True).order_by('-created_at')
-    subcategories = SubCategory.objects.filter(is_visible=True).order_by('-created_at')
     return render_to_response('post.html', {'post': get_object_or_404(Post, slug=slug),
-                                            'categories': categories,
-                                            'subcategories': subcategories},
+                                            'categories': categories},
                               context_instance=RequestContext(request))
 
 
@@ -232,36 +151,3 @@ def submit_mail_newsletter(request):
     except:
         messages.error(request, 'Try Again.')
         return redirect('/')
-
-
-def team(request):
-    categories = Category.objects.filter(is_visible=True).order_by('-created_at')
-    return render_to_response('team.html', {
-        'categories': categories,
-        'members': TeamMember.objects.all()
-    }, context_instance=RequestContext(request))
-
-
-def data(request):
-    categories = Category.objects.filter(is_visible=True).order_by('-created_at')
-    return render_to_response('calendar.html', {
-        'categories': categories,
-        'observatories': Observatory.objects.all()
-    }, context_instance=RequestContext(request))
-
-
-def view_data(request, id):
-    categories = Category.objects.filter(is_visible=True).order_by('-created_at')
-    subcategories = SubCategory.objects.filter(is_visible=True).order_by('-created_at')
-    return render_to_response('view_data.html', {'data': get_object_or_404(DataEntry, id=id),
-                                                 'categories': categories,
-                                                 'subcategories': subcategories},
-                              context_instance=RequestContext(request))
-
-
-def list_obs_data(request):
-    query = request.GET
-    obs = Observatory.objects.get(id=query['id'])
-    entries = DataEntry.objects.first(observatory=obs, created=query['data'])
-    return render_to_response('list_data.html', {'entries': entries},
-                              context_instance=RequestContext(request))
