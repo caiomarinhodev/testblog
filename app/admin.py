@@ -29,7 +29,7 @@ class MessageAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
     inlines = [ImagePostInline, ]
     form = PostForm
-    list_display = ('title', 'id', 'created_at', 'published_at', 'is_visible', 'author')
+    list_display = ('title', 'id', 'created_at', 'published_at', 'is_visible', 'author', 'category', )
     ordering = ['-created_at']
 
     def save_model(self, request, obj, form, change):

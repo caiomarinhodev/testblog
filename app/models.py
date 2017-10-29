@@ -19,10 +19,6 @@ class TimeStamped(models.Model):
 
 
 class Category(TimeStamped):
-    class Meta:
-        verbose_name = "Category"
-        verbose_name_plural = "Categories"
-
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
     is_visible = models.BooleanField(default=True)
