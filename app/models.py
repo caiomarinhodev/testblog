@@ -23,8 +23,11 @@ class Category(TimeStamped):
     slug = models.SlugField(unique=True, blank=True, null=True)
     is_visible = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.name
+
     def __unicode__(self):
-        return u'%s' % (self.name)
+        return self.name
 
     @permalink
     def get_absolute_url(self):
