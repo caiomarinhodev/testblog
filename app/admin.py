@@ -42,6 +42,8 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_visible',)
+
     def save_model(self, request, obj, form, change):
         try:
             obj.slug = slugify(obj.name[:50])
